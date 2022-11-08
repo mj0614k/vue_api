@@ -3,24 +3,24 @@
     <div className="header__left">
       <ul>
         <li>
-          <a href="/about">About</a>
-          <a href="/reference">Reference</a>
+          <router-link to="/about">About</router-link>
+          <router-link to="/reference">Reference</router-link>
         </li>
       </ul>
     </div>
     <h1 className="header__center">
-      <a href="/">API SITE</a>
+      <router-link to="/">API SITE</router-link>
     </h1>
     <div className="header__right">
       <ul>
         <li>
-          <a href="/youtube">Youtube</a>
+          <router-link to="/youtube">Youtube</router-link>
         </li>
         <li>
-          <a href="/movie">Movie</a>
+          <router-link to="/movie">Movie</router-link>
         </li>
         <li>
-          <a href="/unsplash">Unsplash</a>
+          <router-link to="/unsplash">Unsplash</router-link>
         </li>
       </ul>
     </div>

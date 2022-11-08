@@ -13,16 +13,16 @@
         <h3>social</h3>
         <ul>
           <li>
-            <a href="/">youtube</a>
+            <router-link to="/">youtube</router-link>
           </li>
           <li>
-            <a href="/">instagram</a>
+            <router-link to="/">instagram</router-link>
           </li>
           <li>
-            <a href="/">github</a>
+            <router-link to="/">github</router-link>
           </li>
           <li>
-            <a href="/">blog</a>
+            <router-link to="/">blog</router-link>
           </li>
         </ul>
       </div>
