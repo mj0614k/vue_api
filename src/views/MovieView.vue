@@ -5,7 +5,8 @@
     <section class="cont__refer">
       <div class="container">
         <div class="movie__inner">
-          <div class="movie__slider">
+          <h2>POPULAR MOVIES</h2>
+          <div class="movie__popular">
             <swiper
               :effect="'coverflow'"
               :grabCursor="true"
@@ -23,13 +24,18 @@
               :modules="modules"
               class="mySwiper"
             >
-              <swiper-slide v-for="slider in sliders" :key="slider.id">
+              <swiper-slide v-for="(slider, index) in sliders" :key="slider.id">
                 <div class="item">
-                  <a :href="`https://image.tmdb.org/movie/${slider.id}`">
+                  <a :href="`https://www.themoviedb.org/movie/${slider.id}`">
+                    <span class="rank">{{ index + 1 }}</span>
+                    <span class="vote_average"
+                      >★ {{ slider.vote_average }}</span
+                    >
                     <img
                       :src="`https://image.tmdb.org/t/p/w500/${slider.poster_path}`"
                       :alt="slider.title"
                     />
+                    <span class="title">{{ slider.original_title }}</span>
                   </a>
                 </div>
               </swiper-slide>
@@ -54,11 +60,17 @@
             <div class="container">
               <ul class="movie__list">
                 <li v-for="movie in movies" :key="movie.id">
-                  <a :href="`https://image.tmdb.org/movie/${movie.id}`">
+                  <a :href="`https://www.themoviedb.org/movie/${movie.id}`">
+                    <em>
+                      <span className="vote_average"
+                        >★ {{ movie.vote_average }}</span
+                      >
+                    </em>
                     <img
                       :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
                       :alt="movie.title"
                     />
+                    <p class="title">{{ movie.title }}</p>
                   </a>
                 </li>
               </ul>
@@ -106,7 +118,6 @@ export default {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           movies.value = result.results;
           search.value = "";
         })
@@ -143,118 +154,53 @@ export default {
   }
 }
 
-.movie__list {
-  display: flex;
-  flex-wrap: wrap;
-
-  img {
-    width: 100%;
+.movie__popular {
+  .swiper {
+    margin-bottom: 90px;
+  }
+  .swiper-slide {
+    width: 30%;
+    margin-bottom: 70px;
+  }
+  .movie__slider {
+    .swiper-pagination-bullet {
+      background-color: var(--black);
+    }
+  }
+  em {
+    display: block;
     margin-bottom: 10px;
+    font-family: var(--font-kor);
   }
-
-  li {
-    a {
-      align-items: center;
-      width: 100%;
-      color: var(--white);
-      text-align: center;
-
-      em {
-        padding: 5px 0;
-        font-family: var(--font-kor);
-      }
-
-      .original_title {
-        width: 100%;
-        height: 67px;
-        display: inline-block;
-        word-break: keep-all;
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: 700;
-      }
-      .vote_average {
-        display: inline-block;
-        float: right;
-      }
-      .title {
-        display: inline-block;
-        width: 100%;
-        font-size: 12px;
-        color: #ffffff75;
-        font-family: var(--font-kor);
-      }
-    }
+  .title {
+    padding: 5px 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: var(--black);
+    font-weight: 500;
+    font-family: var(--font-kor);
   }
-}
-
-.popular__box {
-  .swiper-pagination-bullet {
-    background-color: var(--white) !important;
+  .rank {
+    color: var(--black);
+    font-family: var(--font-main);
+    font-weight: 600;
   }
-}
-// moviePop__list
-.moviePop__list {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-bottom: 20px;
-
-  li {
-    width: 24%;
-    margin: 1%;
-    position: relative;
-    border: 0;
-    transition: transform 0.3s;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-
-    a {
-      .vote_average {
-        float: right;
-        margin-bottom: 5px;
-      }
-    }
+  .vote_average {
+    color: var(--black);
+    text-align: center;
+    font-family: var(--font-main);
+    line-height: 30px;
+    float: right;
+    font-weight: 600;
   }
 }
 
 .movie__inner {
-  ul {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    li {
-      width: 23%;
-      position: relative;
-      em {
-        display: block;
-        margin-bottom: 10px;
-        font-family: var(--font-kor);
-      }
-      .title {
-        padding: 5px 0;
-        display: inline-block;
-      }
-      .star {
-        background: #fff;
-        color: black;
-        position: absolute;
-        left: 20px;
-        top: 20px;
-        width: 30px;
-        height: 30px;
-        border-radius: 100px;
-        text-align: center;
-        font-family: var(--font-main);
-        line-height: 30px;
-        font-weight: 800;
-      }
-    }
-  }
-  a {
-    color: var(--white);
+  h2 {
+    color: var(--black);
+    font-size: 32px;
+    margin-bottom: 30px;
   }
 }
 .movie__search {
@@ -294,14 +240,35 @@ export default {
     z-index: 1000;
   }
 }
-.swiper {
-  margin-bottom: 70px;
-}
-.swiper-slide {
-  width: 30%;
-  margin-bottom: 70px;
-}
-.swiper-pagination-bullet-active {
-  background-color: var(--black);
+.movie__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li {
+    width: 23%;
+    margin-bottom: 30px;
+    em {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--font-kor);
+    }
+    .title {
+      padding: 5px 0;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      color: var(--black);
+      font-weight: 500;
+      font-family: var(--font-kor);
+    }
+    .vote_average {
+      color: var(--black);
+      text-align: center;
+      font-family: var(--font-main);
+      line-height: 30px;
+      float: right;
+      font-weight: 600;
+    }
+  }
 }
 </style>
