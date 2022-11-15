@@ -31,7 +31,12 @@
           </div>
           <div class="unsplash__search">
             <form @submit.prevent="SearchYoutubes()">
-              <input type="search" id="search" placeholder="검색어를 입력해 주세요." v-model="search" />
+              <input
+                type="search"
+                id="search"
+                placeholder="검색어를 입력해 주세요."
+                v-model="search"
+              />
               <button type="submit">검색</button>
             </form>
           </div>
@@ -89,7 +94,9 @@ export default {
     const search = ref("dog");
 
     const SearchSplashes = async () => {
-      await fetch(`https://api.unsplash.com/search/photos?client_id=CMPYww6ApEZzG93YflWFOp4WZwmnK8GSCgOgbTGxo1s&query=${search.value}`)
+      await fetch(
+        `https://api.unsplash.com/search/photos?client_id=CMPYww6ApEZzG93YflWFOp4WZwmnK8GSCgOgbTGxo1s&query=${search.value}`
+      )
         .then((response) => response.json())
         .then((result) => {
           splashes.value = result;
@@ -99,7 +106,9 @@ export default {
     };
     SearchSplashes();
     const RandomSplashes = async () => {
-      await fetch("https://api.unsplash.com/photos/random?client_id=CMPYww6ApEZzG93YflWFOp4WZwmnK8GSCgOgbTGxo1s&count=20")
+      await fetch(
+        "https://api.unsplash.com/photos/random?client_id=CMPYww6ApEZzG93YflWFOp4WZwmnK8GSCgOgbTGxo1s&count=20"
+      )
         .then((response) => response.json())
         .then((result) => (sliders.value = result))
         .catch((error) => console.log(error));

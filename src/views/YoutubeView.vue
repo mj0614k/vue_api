@@ -20,7 +20,9 @@
             >
               <swiper-slide v-for="(slider, index) in sliders" :key="index">
                 <div class="item">
-                  <a :href="`https://www.youtube.com/watch?v=${slider.id.videoId}`">
+                  <a
+                    :href="`https://www.youtube.com/watch?v=${slider.id.videoId}`"
+                  >
                     <img :src="`${slider.snippet.thumbnails.medium.url}`" />
                     <span class="title">{{ slider.snippet.title }}</span>
                   </a>
@@ -31,7 +33,12 @@
           <!-- //youtube__slider -->
           <div class="youtube__search">
             <form @submit.prevent="SearchYoutubes()">
-              <input type="search" id="search" placeholder="검색어를 입력해 주세요." v-model="search" />
+              <input
+                type="search"
+                id="search"
+                placeholder="검색어를 입력해 주세요."
+                v-model="search"
+              />
               <button type="submit">검색</button>
             </form>
           </div>
@@ -48,7 +55,9 @@
           <div class="youtube__youtubes">
             <ul class="youtube__list">
               <li v-for="vedio in vedios" :key="vedio.id">
-                <a :href="`https://www.youtube.com/watch?v=${vedio.id.videoId}`">
+                <a
+                  :href="`https://www.youtube.com/watch?v=${vedio.id.videoId}`"
+                >
                   <img :src="`${vedio.snippet.thumbnails.medium.url}`" />
                   <p class="title">{{ vedio.snippet.title }}</p>
                 </a>
@@ -91,7 +100,9 @@ export default {
     const sliders = ref([]);
     const search = ref("html");
     const SearchYoutubes = async () => {
-      await fetch(`https://youtube.googleapis.com/youtube/v3/search?key=AIzaSyDScK_kd_EDAf9lp5tqhRjnyc1f34kDTrE&part=snippet&q=${search.value}&maxResults=30&type=video`)
+      await fetch(
+        `https://youtube.googleapis.com/youtube/v3/search?key=AIzaSyDScK_kd_EDAf9lp5tqhRjnyc1f34kDTrE&part=snippet&q=${search.value}&maxResults=30&type=video`
+      )
         .then((response) => response.json())
         .then((result) => {
           vedios.value = result.items;
@@ -101,7 +112,9 @@ export default {
     };
     SearchYoutubes();
     const TopYoutubes = async () => {
-      await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=10&key=AIzaSyDScK_kd_EDAf9lp5tqhRjnyc1f34kDTrE`)
+      await fetch(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=10&key=AIzaSyDScK_kd_EDAf9lp5tqhRjnyc1f34kDTrE`
+      )
         .then((response) => response.json())
         .then((result) => (sliders.value = result.items))
         .catch((error) => console.log(error));
